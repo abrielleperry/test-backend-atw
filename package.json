@@ -1,0 +1,51 @@
+{
+  "name": "festivals-around-the-world",
+  "version": "1.0.0",
+  "description": "A custom API built with JavaScript, Express, Node.js, and MongoDB, with a React frontend.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "server": "nodemon server.js",
+    "build": "npm run build --prefix client",
+    "heroku-postbuild": "npm run build --prefix client"
+  },
+  "keywords": [
+    "API",
+    "JavaScript",
+    "Express",
+    "Node.js",
+    "MongoDB",
+    "React"
+  ],
+  "author": "Abrielle Perry",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "csv-stringify": "^6.5.2",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.11.0",
+    "mongoose": "^8.8.3",
+    "npm": "^10.9.1",
+    "punycode": "^2.3.1",
+    "redis": "^4.7.0",
+    "socket.io": "^4.8.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
