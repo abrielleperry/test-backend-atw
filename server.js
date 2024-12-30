@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import express from "express";
 import { MongoClient } from "mongodb";
 import cors from "cors";
+import { ObjectId } from "mongodb";
+
 
 dotenv.config();
 
@@ -23,7 +25,6 @@ const PORT = process.env.PORT || 5001;
 
     const database = dbClient.db(DATABASE_NAME);
     const festivalsCollection = database.collection("festivals");
-    const performersCollection = database.collection("performers")
 
 
     // all routes ↓
@@ -39,16 +40,28 @@ const PORT = process.env.PORT || 5001;
       }
     });
 
-    // get all of data from the performers collection
-    app.get("/performers", async (req, res) => {
-      try {
-        const performers = await performersCollection.find({}).toArray();
-        res.status(200).json(performers);
-      } catch (error) {
-        console.error("Error fetching performers:", error.message);
-        res.status(500).json({ message: "Failed to fetch performers" });
-      }
-    });
+
+    app.get("/festivals/:id", async (req, res) => {
+              const { id } = req.params;
+
+              console.log(`Request received for festival ID: ${id}`);
+              if (!ObjectId.isValid(id)) {
+                return res.status(400).json({ message: "Invalid festival ID" });
+              }
+
+              try {
+                const festival = await festivalsCollection.findOne({ _id: new ObjectId(id) });
+                if (!festival) {
+                  return res.status(404).json({ message: "Festival not found" });
+                }
+
+                res.status(200).json(festival);
+              } catch (error) {
+                console.error(`Error in /festivals/:id for ID: ${id}`, error);
+                res.status(500).json({ message: "Failed to fetch festival" });
+              }
+            });
+
 
 
     app.listen(PORT, () => {
