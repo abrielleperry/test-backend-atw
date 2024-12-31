@@ -4,6 +4,7 @@ import axios from 'axios';
 import FestivalList from "./components/FestivalList";
 import SearchBox from "./components/SearchBox";
 import Header from "./components/Header";
+import DateFilter from './components/DateFilter';
 
 const App = () => {
     const [festivals, setFestivals] = useState([]);
@@ -48,6 +49,25 @@ const App = () => {
         }, 300);
     };
 
+    const handleDateChange = async (date) => {
+        debounce(async () => {
+            if (!date) {
+                setFestivals([]); // Clear results if the date is cleared
+                return;
+            }
+        try {
+                const response = await axios.get(`http://localhost:5001/festivals?startDate=${date.toISOString().split('T')[0]}`);
+                setFestivals(response.data);
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    setFestivals([]); // No results found
+                } else {
+                    console.error("Error fetching festivals by date:", error);
+                }
+            }
+        }, 300)
+    };
+
 
     return (
         <Router>
@@ -60,6 +80,7 @@ const App = () => {
                             <>
                                 <h1>Festival Explorer</h1>
                                 <SearchBox query={query} setQuery={setQuery} searchFestivalName={searchFestivalName} />
+                                <DateFilter onDateChosen={handleDateChange} />
                                 <FestivalList festivals={festivals} />
                             </>
                         }

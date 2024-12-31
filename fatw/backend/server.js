@@ -97,15 +97,16 @@ const PORT = process.env.PORT || 5001;
 
 
     app.get("/search", async (req, res) => {
-    const { query } = req.query;
+    const { name } = req.query;
+    const { startDate } = req.query
 
     try {
-        if (!query) {
-            return res.status(400).json({ message: "Query parameter is required" });
+        if (!name) {
+            return res.status(400).json({ message: "Festival name is required" });
         }
 
         const results = await festivalsCollection
-            .find({ name: { $regex: new RegExp(query, "i") } }) // Case-insensitive
+            .find({ name: { $regex: new RegExp(name, "i") } }) // Case-insensitive
             .toArray();
 
         if (results.length === 0) {
@@ -119,7 +120,7 @@ const PORT = process.env.PORT || 5001;
     }
 });
 
-// http://localhost:5001/search?query=Soundstorm
+//http://localhost:5001/search?name=Soundstorm
 
 
     app.listen(PORT, () => {
