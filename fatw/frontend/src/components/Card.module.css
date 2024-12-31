@@ -1,0 +1,60 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.name {
+    margin-bottom: .2px
+}
+
+
+.locationName {
+    font-size: 1rem;
+    margin-top: .2px;
+}
+
+.details {
+    font-size: 0.875rem;
+    color: #777;
+}
+
+.streetAddress {
+    margin-bottom: .2px
+}
+
+.addressDetails {
+    margin-top: .2px;
+}
+
+.startDate {
+    margin-bottom: .2px
+}
+
+.endDate {
+    margin-top: .2px;
+}
