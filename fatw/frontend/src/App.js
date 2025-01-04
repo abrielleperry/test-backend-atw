@@ -52,15 +52,20 @@ const App = () => {
     const handleDateChange = async (date) => {
         debounce(async () => {
             if (!date) {
-                setFestivals([]); // Clear results if the date is cleared
+                try {
+                    const response = await axios.get('http://localhost:5001/festivals');
+                    setFestivals(response.data); // Clear results if the date is cleared
+                } catch (error) {
+                    console.error("Error fetching festivals:", error);
+                }
                 return;
             }
-        try {
+            try {
                 const response = await axios.get(`http://localhost:5001/festivals?startDate=${date.toISOString().split('T')[0]}`);
                 setFestivals(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    setFestivals([]); // No results found
+                    setFestivals([]); // No results found for selected date
                 } else {
                     console.error("Error fetching festivals by date:", error);
                 }
